@@ -8,12 +8,12 @@
     3 JWT的的token不会自动过期，一旦获取token设定了过期时间，在过期之前使用该token到任何
     机器都可以正常登陆服务器，所以如果需要人为干预过期时间，那么可以考虑在JWT的基础上加入
     redis缓存token,服务器通过获取redis的token判断用户登录是否过期。
-###二 JWT结构组成部分
+### 二 JWT结构组成部分
     由三部分生成token 
     3部分之间用“.”号做分隔。例如eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c 
 
 * 头部（header)
-    ######Header 部分是一个 JSON 对象，描述 JWT 的元数据，通常是下面的样子。
+    ###### Header 部分是一个 JSON 对象，描述 JWT 的元数据，通常是下面的样子。
     <pre><code>
     {
       "alg": "HS256",
@@ -21,7 +21,7 @@
     }
     </code></pre>
 * 其为载荷（payload)
-     ######payload一般用于存放用户信息以及token过期时间，下面是官方字段。
+     ###### payload一般用于存放用户信息以及token过期时间，下面是官方字段。
     <pre><code>
     iss (issuer)：签发人
     exp (expiration time)：过期时间
@@ -31,7 +31,7 @@
     iat (Issued At)：签发时间
     jti (JWT ID)：编号
     </code></pre>
-    ######除了官方原有字段，自己可以自定义加入其他的用户信息字段。如下所示：
+    ###### 除了官方原有字段，自己可以自定义加入其他的用户信息字段。如下所示：
     <pre><code>
     {
       "sex": "1",
@@ -40,12 +40,12 @@
     }
     </code></pre>
 * 签证（signature) 
-    ######Signature 部分是对前两部分的签名，防止数据篡改。<BR/>首先，需要指定一个密钥（secret）。这个密钥只有服务器才知道，不能泄露给用户。<BR/>然后，使用 Header 里面指定的签名算法（默认是 HMAC SHA256），按照下面的公式产生签名。
+    ###### Signature 部分是对前两部分的签名，防止数据篡改。<BR/>首先，需要指定一个密钥（secret）。这个密钥只有服务器才知道，不能泄露给用户。<BR/>然后，使用 Header 里面指定的签名算法（默认是 HMAC SHA256），按照下面的公式产生签名。
     <pre><code>
      HMACSHA256(base64UrlEncode(header) + "." +base64UrlEncode(payload),secret)
     </code></pre>
-    ######算出签名以后，把 Header、Payload、Signature 三个部分拼成一个字符串，每个部分之间用"点"（.）分隔，就可以返回给用户。
-###三 JWT 的几个特点
+    ###### 算出签名以后，把 Header、Payload、Signature 三个部分拼成一个字符串，每个部分之间用"点"（.）分隔，就可以返回给用户。
+### 三 JWT 的几个特点
 * JWT 默认是不加密，但也是可以加密的。生成原始 Token 以后，可以用密钥再加密一次。
 
 * WT 不加密的情况下，不能将秘密数据写入 JWT。
