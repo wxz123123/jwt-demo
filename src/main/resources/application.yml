@@ -1,0 +1,6 @@
+server:
+  port: 8080
+jwt:
+  secret: MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjY
+  expires: 1800000 #过期时间#
+excludePathPatterns: /loginController/login,/loginController/register
